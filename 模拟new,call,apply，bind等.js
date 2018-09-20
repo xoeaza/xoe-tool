@@ -36,3 +36,20 @@ Function.prototype.apply2 = function(context, ...args) {
   delete context._fn_
   return result
 }
+
+// 模拟实现一个bind函数
+Function.prototype.bind2 = function(context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('Error')
+  }
+  var _this = this
+  var args = [...arguments].slice(1)
+  // 返回一个函数
+  return function F() {
+    // 因为返回了一个函数，我们可以 new F()，所以需要判断
+    if (this instanceof F) {
+      return new _this(...args, ...arguments)
+    }
+    return _this.apply(context, args.concat(...arguments))
+  }
+}
