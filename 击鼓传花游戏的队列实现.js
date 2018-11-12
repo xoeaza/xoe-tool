@@ -14,12 +14,11 @@ let Queque = (function() {
     }
     dequeque() {
       let q = item.get(this)
-      let r = q.shift()
-      return r
+      return q.shift()
     }
     size() {
-      let a = item.get(this)
-      return a.length
+      let q = item.get(this)
+      return q.length
     }
   }
   return Queque
