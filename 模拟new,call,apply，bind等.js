@@ -53,3 +53,14 @@ Function.prototype.bind2 = function(context) {
     return _this.apply(context, args.concat(...arguments))
   }
 }
+
+// 模拟实现一个instanceof函数
+function _instanceof(obj, constructor) {
+  let proto = obj.__proto__
+  const prototype = constructor.prototype
+  while (true) {
+    if (proto === null) return false
+    if (proto === prototype) return true
+    proto = proto.__proto__
+  }
+}
