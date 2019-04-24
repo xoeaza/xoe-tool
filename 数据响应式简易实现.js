@@ -81,3 +81,26 @@ function update(value) {
 new Watcher(data, 'name', update)
 // 模拟触发数据更改
 data.name = 'xixixixii'
+
+// Vue3.0中使用Proxy实现数据响应优点，无需一层层为每个属性添加代理，一次性即可完成以上操作, 并且proxy可以监听到任何的数据改变。
+let onWatch = (obj, setBind, getLogger) => {
+  let handler = {
+    get(target, property, receiver) {
+      getLogger(target, property)
+      return Reflect.get(target, property, receiver)
+    },
+    set(target, property, value, receiver) {
+      setBind(target, property)
+      return Reflect.set(target, property, value, receiver)
+    }
+  }
+  return new Proxy(obj, handler)
+}
+
+let obj = { a: 1 }
+let p = onWatch(obj, (target, property) => {
+  console.log(`监听到属性${property}改变为${target[property]}`)
+}, (target, property) => {
+  console.log(`${property}=${target[property]}`)
+})
+p.a = 2 //监听到属性a改变为1
