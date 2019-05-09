@@ -30,3 +30,29 @@ function ff(n) {
 }
 
 console.log(ff(32)) //3524578
+
+// 多维数组
+let arr = [
+  [1, 2, 3, 4],
+  [3, 4, 6, 'a', ['q', 'w', 'e']],
+  [1, 'p', 6, 6, [1, 2, 3, [1, 2, 3, [1, 2, 3, 2, 3]]]],
+  1, 2, 3, 4,
+  { a: 1, b: 2 },
+];
+//多维数组扁平化递归的实现
+function deepFlatten(arr) {
+  let result = [];
+  function recursive(innerArr) {
+    innerArr.forEach((v, i) => {
+      if (Array.isArray(v)) {
+        recursive(v);
+      }
+      else {
+        result.push(v);
+      }
+    });
+  }
+  recursive(arr);
+  return result;
+}
+console.log(deepFlatten(arr));
