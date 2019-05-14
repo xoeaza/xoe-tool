@@ -56,3 +56,26 @@ function deepFlatten(arr) {
   return result;
 }
 console.log(deepFlatten(arr));
+
+// 未排序数组中连续的最长数组输出
+const fn = (arr) => {
+  let maxLen = 1
+  let tempLen = 1
+  let lastIndex
+  let arrInOrder = [...new Set(arr.sort((a, b) => a - b))]
+  for (let i = 1, len = arrInOrder.length; i < len; i++) {
+    if (arrInOrder[i] - arrInOrder[i - 1] === 1) {
+      tempLen += 1
+      if (tempLen > maxLen) {
+        maxLen = tempLen
+        lastIndex = i
+      }
+    } else {
+      tempLen = 1
+    }
+  }
+  return arrInOrder[lastIndex - maxLen + 1] + '-->' + arrInOrder[lastIndex]
+}
+
+const arr = [1, 11, 2, 30, 6, 8, 7, 9, 10]
+console.log(fn(arr)) //6-->11
