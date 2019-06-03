@@ -4,10 +4,16 @@ typeof null // 'object'
 let a = {}, //[object Object]
   b = undefined, //[object Undefined]
   c = null, //[object Null]
-  d = () => {}, //[object Function]
+  d = () => { }, //[object Function]
   e = [], //[object Array]
   f = 1, //[object Number]
   g = '', //[object String]
   h = Symbol(), //[object Symbol]
   i = false //[object Boolean]
 console.log(Object.prototype.toString.call(a))
+
+
+// 封装成函数调用
+const isType = type => target => `[object ${type}]` === Object.prototype.toString.call(target)
+const isArray = isType('Array')
+console.log(isArray([])); // true
