@@ -16,7 +16,7 @@ then
     export GIT_AUTHOR_NAME="$CORRECT_NAME"
     export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
 fi
-' --tag-name-filter cat -- --branches --tags
+' --tag-name-filter cat -- --branches --tags:
 
 # 赋予执行权限 chmod +x email.sh
 # 运行 ./email.sh
