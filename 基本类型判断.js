@@ -17,3 +17,7 @@ console.log(Object.prototype.toString.call(a))
 const isType = type => target => `[object ${type}]` === Object.prototype.toString.call(target)
 const isArray = isType('Array')
 console.log(isArray([])); // true
+
+// 另一种封装方式
+const type = data => Object.prototype.toString.call(data).replace(/^\[object (.+)\]$/, '$1').toLowerCase()
+type({}) //object
