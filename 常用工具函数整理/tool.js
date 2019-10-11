@@ -133,3 +133,82 @@ function getFileData(file) {
 	data = data.replace(/^\uFEFF/, '')
 	return data
 }
+
+// js 驼峰转下划线  api_hook
+'apiHook'.replace(/\B([A-Z])/g, '_$1').toLowerCase()
+
+// js 下划线转驼峰 apiHookGet
+'api_hook_get'.replace(/\_(\w)/g, (all, letter) => {
+	return letter.toUpperCase()
+})
+
+// js 骚操作获取地址栏参数 ?name=zhangsan&age=11 => {name: "zhangsan", age: 11}
+let q = {}
+location.search.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (q[k] = v))
+
+/*DOM转字符串*/
+domToStirng(htmlDOM){
+    let div= document.createElement("div");
+    div.appendChild(htmlDOM);
+    return div.innerHTML
+}
+
+/*字符串转DOM*/
+stringToDom(htmlString){
+    let div= document.createElement("div");
+    div.innerHTML=htmlString;
+    return div.children[0];
+}
+
+    /**
+     * get/set attributes
+     * @param {HTMLElement} el 
+     * @param {String | Object} name 
+     * @param {String} value 
+     */
+    attr(el, name, value) {
+        if (typeof el.getAttribute === "undefined") return utils.prop(el, name, value)
+        if (value !== undefined) {
+            if (value === null) utils.removeAttr(el, name)
+            else el.setAttribute(name, value)
+        } else if (({}).toString.call(name) === '[object Object]') {
+            utils.each(name, (k, v) => {
+                el.setAttribute(k, v)
+            })
+        } else return el.getAttribute(name)
+    }
+    /**
+     * Create Element
+     * @param {String} name ElementTagName
+     * @param {Object} attrName 
+     * @param {Object} attrVal 
+     */
+    create(name, attrName, attrVal) {
+        let el = document.createElement(name)
+        utils.attr(el, attrName, attrVal)
+        return el
+    }
+    /**
+     * 动态加载资源库 
+     * @param {String} sourceName 资源名 script/link
+     * @param {Object} attrs 需要加载属性/值
+     * @param {Function} callback 回调函数
+     */
+    dynamicLoadSource(sourceName, attrs, callback) {
+        let attrNameMap = {'script':'src','link':'href'};
+        let attr = attrNameMap[sourceName];
+        if (utils.find(doc, `${sourceName}[${attr}="${attrs[attr]}"]`)) {
+            typeof (callback) === 'function' && callback()
+        } else {
+            let s = utils.create(sourceName, attrs);
+            let h = doc.getElementsByTagName("head")[0];
+            h.appendChild(s);
+            s.onload = s.onreadystatechange = function () {
+                let vm = this;
+                if (! /*@cc_on!@*/ 0 || vm.readyState === 'loaded' || vm.readyState === 'complete') {
+                    vm.onload = vm.onreadystatechange = null;
+                    typeof (callback) === 'function' && callback()
+                }
+            }
+        }
+    },
