@@ -1,0 +1,231 @@
+/* https://css-tricks.com/the-shapes-of-css/ */
+/* 圆形circle */
+#circle {
+	width: 100px;
+	height: 100px;
+	background: red;
+	border-radius: 50%;
+}
+
+/* 椭圆型oval */
+#oval {
+	width: 200px;
+	height: 100px;
+	background: red;
+	border-radius: 100px / 50px;
+}
+
+/* 上三角形 Triangle Up*/
+#triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-bottom: 100px solid red;
+}
+
+/* 下三角形 triangle-down*/
+#triangle-down {
+	width: 0;
+	height: 0;
+	border-left: 50px solid transparent;
+	border-right: 50px solid transparent;
+	border-top: 100px solid red;
+}
+
+/* 左三角形 triangle-left*/
+#triangle-left {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-right: 100px solid red;
+	border-bottom: 50px solid transparent;
+}
+
+/* 右三角形 triangle-left*/
+#triangle-right {
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-left: 100px solid red;
+	border-bottom: 50px solid transparent;
+}
+
+/* 左上直角三角形triangle-topleft */
+#triangle-topleft {
+	width: 0;
+	height: 0;
+	border-top: 100px solid red;
+	border-right: 100px solid transparent;
+}
+
+/* 梯形trapezoid */
+
+#trapezoid {
+	border-bottom: 100px solid red;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	height: 0;
+	width: 100px;
+}
+
+/* 平行四边形parallelogram */
+#parallelogram {
+	width: 150px;
+	height: 100px;
+	transform: skew(20deg);
+	background: red;
+}
+
+/* 扇型 */
+#cone {
+	width: 0;
+	height: 0;
+	border-left: 70px solid transparent;
+	border-right: 70px solid transparent;
+	border-top: 100px solid red;
+	border-radius: 50%;
+}
+
+/* 蛋型egg */
+#egg {
+	display: block;
+	width: 126px;
+	height: 180px;
+	background-color: red;
+	border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+
+/* 箭头Curved Tail Arrow  */
+#curvedarrow {
+	position: relative;
+	width: 0;
+	height: 0;
+	border-top: 9px solid transparent;
+	border-right: 9px solid red;
+	transform: rotate(10deg);
+}
+#curvedarrow:after {
+	content: '';
+	position: absolute;
+	border: 0 solid transparent;
+	border-top: 3px solid red;
+	border-radius: 20px 0 0 0;
+	top: -12px;
+	left: -9px;
+	width: 12px;
+	height: 12px;
+	transform: rotate(45deg);
+}
+
+/* 聊天框 Talk Bubble*/
+#talkbubble {
+	width: 120px;
+	height: 80px;
+	background: red;
+	position: relative;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+#talkbubble:before {
+	content: '';
+	position: absolute;
+	right: 100%;
+	top: 26px;
+	width: 0;
+	height: 0;
+	border-top: 13px solid transparent;
+	border-right: 26px solid red;
+	border-bottom: 13px solid transparent;
+}
+
+/* 小电视 */
+#tv {
+	position: relative;
+	width: 200px;
+	height: 150px;
+	margin: 20px 0;
+	background: red;
+	border-radius: 50% / 10%;
+	color: white;
+	text-align: center;
+	text-indent: 0.1em;
+}
+#tv:before {
+	content: '';
+	position: absolute;
+	top: 10%;
+	bottom: 10%;
+	right: -5%;
+	left: -5%;
+	background: inherit;
+	border-radius: 5% / 50%;
+}
+
+/* 太极 */
+#yin-yang {
+	width: 96px;
+	box-sizing: content-box;
+	height: 48px;
+	background: #eee;
+	border-color: red;
+	border-style: solid;
+	border-width: 2px 2px 50px 2px;
+	border-radius: 100%;
+	position: relative;
+}
+#yin-yang:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	background: #eee;
+	border: 18px solid red;
+	border-radius: 100%;
+	width: 12px;
+	height: 12px;
+	box-sizing: content-box;
+}
+#yin-yang:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: red;
+	border: 18px solid #eee;
+	border-radius: 100%;
+	width: 12px;
+	height: 12px;
+	box-sizing: content-box;
+}
+
+/* Pointer */
+#pointer {
+	width: 200px;
+	height: 40px;
+	position: relative;
+	background: red;
+}
+#pointer:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+#pointer:before {
+	content: '';
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid red;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
