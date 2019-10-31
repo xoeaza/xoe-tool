@@ -1,9 +1,9 @@
 // 生成随机HEX色值
 const RandomColor = () =>
-	'#' +
-	Math.floor(Math.random() * 0xffffff)
-		.toString(16)
-		.padEnd(6, '0')
+    '#' +
+    Math.floor(Math.random() * 0xffffff)
+        .toString(16)
+        .padEnd(6, '0')
 const color = RandomColor()
 // color => "#f03665"
 
@@ -33,12 +33,12 @@ const num = RandomNum(1, 10)
 
 // 判断数据类型：undefined、null、string、number、boolean、array、object、symbol、date、regexp、function、asyncfunction、arguments、set、map、weakset、weakmap
 function DataType(tgt, type) {
-	const dataType = Object.prototype.toString
-		.call(tgt)
-		.replace(/\[object /g, '')
-		.replace(/\]/g, '')
-		.toLowerCase()
-	return type ? dataType === type : dataType
+    const dataType = Object.prototype.toString
+        .call(tgt)
+        .replace(/\[object /g, '')
+        .replace(/\]/g, '')
+        .toLowerCase()
+    return type ? dataType === type : dataType
 }
 
 // 是否为空数组
@@ -61,20 +61,20 @@ const arr = [undefined, null, '', 0, false, NaN, 1, 2].filter(Boolean)
 
 // 异步累计
 async function Func(deps) {
-	return deps.reduce(async (t, v) => {
-		const dep = await t
-		const version = await Todo(v)
-		dep[v] = version
-		return dep
-	}, Promise.resolve({}))
+    return deps.reduce(async (t, v) => {
+        const dep = await t
+        const version = await Todo(v)
+        dep[v] = version
+        return dep
+    }, Promise.resolve({}))
 }
 const result = await Func()
 
 // 统计数组成员个数
 const arr = [0, 1, 1, 2, 2, 2]
 const count = arr.reduce((t, c) => {
-	t[c] = t[c] ? ++t[c] : 1
-	return t
+    t[c] = t[c] ? ++t[c] : 1
+    return t
 }, {})
 // count => { 0: 1, 1: 2, 2: 3 }
 
@@ -93,45 +93,45 @@ const arr = new Array(3).fill(0)
 
 // 检测非空参数
 function IsRequired() {
-	throw new Error('param is required')
+    throw new Error('param is required')
 }
 function Func(name = IsRequired()) {
-	console.log(name)
+    console.log(name)
 }
 Func() // "param is required"
 Func('Lee') // "Lee"
 
 // 优雅处理Async/Await参数
 function AsyncTo(promise) {
-	return promise.then(data => [null, data]).catch(err => [err])
+    return promise.then(data => [null, data]).catch(err => [err])
 }
 const [err, res] = await AsyncTo(Func())
 
 // 优雅处理多个函数返回值
 function Func() {
-	return Promise.all([fetch('/user'), fetch('/comment')])
+    return Promise.all([fetch('/user'), fetch('/comment')])
 }
 const [user, comment] = await Func() // 需在async包围下使用
 
-// 显示全部DOM边框：调试页面元素边界时使用
-;[].forEach.call($$('*'), dom => {
-	dom.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)
-})
+    // 显示全部DOM边框：调试页面元素边界时使用
+    ;[].forEach.call($$('*'), dom => {
+        dom.style.outline = '1px solid #' + (~~(Math.random() * (1 << 24))).toString(16)
+    })
 
 // 过滤XSS
 function FilterXss(content) {
-	let elem = document.createElement('div')
-	elem.innerText = content
-	const result = elem.innerHTML
-	elem = null
-	return result
+    let elem = document.createElement('div')
+    elem.innerText = content
+    const result = elem.innerHTML
+    elem = null
+    return result
 }
 
 // 过滤 \uFEFF
 function getFileData(file) {
-	let data = readFileSync(file, 'utf-8')
-	data = data.replace(/^\uFEFF/, '')
-	return data
+    let data = readFileSync(file, 'utf-8')
+    data = data.replace(/^\uFEFF/, '')
+    return data
 }
 
 // js 驼峰转下划线  api_hook
@@ -139,7 +139,7 @@ function getFileData(file) {
 
 // js 下划线转驼峰 apiHookGet
 'api_hook_get'.replace(/\_(\w)/g, (all, letter) => {
-	return letter.toUpperCase()
+    return letter.toUpperCase()
 })
 
 // js 骚操作获取地址栏参数 ?name=zhangsan&age=11 => {name: "zhangsan", age: 11}
@@ -148,67 +148,148 @@ location.search.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (q[k] = v))
 
 /*DOM转字符串*/
 domToStirng(htmlDOM){
-    let div= document.createElement("div");
+    let div = document.createElement("div");
     div.appendChild(htmlDOM);
     return div.innerHTML
 }
 
 /*字符串转DOM*/
 stringToDom(htmlString){
-    let div= document.createElement("div");
-    div.innerHTML=htmlString;
+    let div = document.createElement("div");
+    div.innerHTML = htmlString;
     return div.children[0];
 }
 
-    /**
-     * get/set attributes
-     * @param {HTMLElement} el 
-     * @param {String | Object} name 
-     * @param {String} value 
-     */
-    attr(el, name, value) {
-        if (typeof el.getAttribute === "undefined") return utils.prop(el, name, value)
-        if (value !== undefined) {
-            if (value === null) utils.removeAttr(el, name)
-            else el.setAttribute(name, value)
-        } else if (({}).toString.call(name) === '[object Object]') {
-            utils.each(name, (k, v) => {
-                el.setAttribute(k, v)
-            })
-        } else return el.getAttribute(name)
-    }
-    /**
-     * Create Element
-     * @param {String} name ElementTagName
-     * @param {Object} attrName 
-     * @param {Object} attrVal 
-     */
-    create(name, attrName, attrVal) {
-        let el = document.createElement(name)
-        utils.attr(el, attrName, attrVal)
-        return el
-    }
-    /**
-     * 动态加载资源库 
-     * @param {String} sourceName 资源名 script/link
-     * @param {Object} attrs 需要加载属性/值
-     * @param {Function} callback 回调函数
-     */
-    dynamicLoadSource(sourceName, attrs, callback) {
-        let attrNameMap = {'script':'src','link':'href'};
-        let attr = attrNameMap[sourceName];
-        if (utils.find(doc, `${sourceName}[${attr}="${attrs[attr]}"]`)) {
-            typeof (callback) === 'function' && callback()
-        } else {
-            let s = utils.create(sourceName, attrs);
-            let h = doc.getElementsByTagName("head")[0];
-            h.appendChild(s);
-            s.onload = s.onreadystatechange = function () {
-                let vm = this;
-                if (! /*@cc_on!@*/ 0 || vm.readyState === 'loaded' || vm.readyState === 'complete') {
-                    vm.onload = vm.onreadystatechange = null;
-                    typeof (callback) === 'function' && callback()
-                }
+/**
+ * get/set attributes
+ * @param {HTMLElement} el 
+ * @param {String | Object} name 
+ * @param {String} value 
+ */
+attr(el, name, value) {
+    if (typeof el.getAttribute === "undefined") return utils.prop(el, name, value)
+    if (value !== undefined) {
+        if (value === null) utils.removeAttr(el, name)
+        else el.setAttribute(name, value)
+    } else if (({}).toString.call(name) === '[object Object]') {
+        utils.each(name, (k, v) => {
+            el.setAttribute(k, v)
+        })
+    } else return el.getAttribute(name)
+}
+/**
+ * Create Element
+ * @param {String} name ElementTagName
+ * @param {Object} attrName 
+ * @param {Object} attrVal 
+ */
+create(name, attrName, attrVal) {
+    let el = document.createElement(name)
+    utils.attr(el, attrName, attrVal)
+    return el
+}
+/**
+ * 动态加载资源库 
+ * @param {String} sourceName 资源名 script/link
+ * @param {Object} attrs 需要加载属性/值
+ * @param {Function} callback 回调函数
+ */
+dynamicLoadSource(sourceName, attrs, callback) {
+    let attrNameMap = { 'script': 'src', 'link': 'href' };
+    let attr = attrNameMap[sourceName];
+    if (utils.find(doc, `${sourceName}[${attr}="${attrs[attr]}"]`)) {
+        typeof (callback) === 'function' && callback()
+    } else {
+        let s = utils.create(sourceName, attrs);
+        let h = doc.getElementsByTagName("head")[0];
+        h.appendChild(s);
+        s.onload = s.onreadystatechange = function () {
+            let vm = this;
+            if (! /*@cc_on!@*/ 0 || vm.readyState === 'loaded' || vm.readyState === 'complete') {
+                vm.onload = vm.onreadystatechange = null;
+                typeof (callback) === 'function' && callback()
             }
         }
-    },
+    }
+},
+// 点击目标区域外隐藏
+function hideOnClickOutside(element) {
+    const outsideClickListener = event => {
+        if (!element.contains(event.target) && isVisible(element)) { // or use: event.target.closest(selector) === null
+            element.style.display = 'none'
+            removeClickListener()
+        }
+    }
+
+    const removeClickListener = () => {
+        document.removeEventListener('click', outsideClickListener)
+    }
+
+    document.addEventListener('click', outsideClickListener)
+}
+
+const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length) 
+
+// 输入是否是数字
+function isNumeric(n) {
+    return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  /**
+ * Set the style to the given popper
+ * @method
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+export default function setStyles(element, styles) {
+    Object.keys(styles).forEach(prop => {
+      let unit = '';
+      // add unit if the value is numeric and is one of the following
+      if (
+        ['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !==
+          -1 &&
+        isNumeric(styles[prop])
+      ) {
+        unit = 'px';
+      }
+      element.style[prop] = styles[prop] + unit;
+    });
+  }
+
+  /**
+ * Set the attributes to the given popper
+ * @method
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+export default function setAttributes(element, attributes) {
+    Object.keys(attributes).forEach(function(prop) {
+      const value = attributes[prop];
+      if (value !== false) {
+        element.setAttribute(prop, attributes[prop]);
+      } else {
+        element.removeAttribute(prop);
+      }
+    });
+  }
+
+  /**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+export default function getOuterSizes(element) {
+    const window = element.ownerDocument.defaultView;
+    const styles = window.getComputedStyle(element);
+    const x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
+    const y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
+    const result = {
+      width: element.offsetWidth + y,
+      height: element.offsetHeight + x,
+    };
+    return result;
+  }
+  
