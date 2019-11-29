@@ -1,4 +1,5 @@
-import isBrowser from './DOM/isBrowser';
+const isBrowser = () => typeof window !== 'undefined' && typeof document !== 'undefined' && typeof navigator !== 'undefined';
+
 
 const timeoutDuration = (function () {
     const longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
