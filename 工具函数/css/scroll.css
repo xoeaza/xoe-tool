@@ -1,27 +1,31 @@
 ::-webkit-scrollbar {
-	/* 设置整个滚动条宽高 */
-	width: 6px;
-	height: 100%;
+    /* 设置整个滚动条宽高 */
+    width: 6px;
+    height: 100%;
 }
 ::-webkit-scrollbar-thumb {
-	/* 设置滑块 */
-	width: 4px;
-	height: 60px;
-	background-color: #ccc;
-	border-radius: 3px;
+    /* 设置滑块 */
+    width: 4px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 3px;
 }
 ::-webkit-scrollbar-track {
-	/* 设置背景透明 */
-	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.5);
+    /* 设置背景透明 */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .FBox-root::-webkit-scrollbar {
-	width: 8px;
-	background: transparent;
+    width: 8px;
+    background: transparent;
 }
 
 .FBox-root::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.FBox-root::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
