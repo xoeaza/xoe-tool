@@ -353,3 +353,38 @@ genUid() // ;l`yCPc9A8IuK}?N6,%}
 const RandomId = len => Math.random().toString(36).substr(3, len);
 const id = RandomId(10);
 // id => "jg7zpgiqva"
+
+// 回到顶部
+const scrollToTop = _ => {
+  const c = document.documentElement.scrollTop || document.body.scrollTop;
+  if(c > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, c - c/8);
+  }
+}
+
+
+// 获取浏览器location内需要的字段
+const getUrlParam = (key) => {
+  let ret = {}
+  for(let x of window.location.href.split('?')[1].split('&')) {
+    ret[x.split('=')[0]] = x.split('=')[1]
+  }
+  return ret[key]
+} 
+
+// 正则写法
+function getUrlParam(name) {
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+  const r = decodeURI(window.location.search.substr(1)).match(reg)
+  if (r != null) {
+    return unescape(r[2])
+  } else {
+    return null
+  }
+}
+
+// sleep 
+function sleep(ms){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
