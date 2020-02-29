@@ -304,3 +304,52 @@ export function remove (arr, item) {
     }
   }
 }
+
+// 加载脚本
+function loadScript(url, callback, callbackError) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+
+    try {
+        if (script.readyState) {  //IE
+            script.onreadystatechange = function () {
+                if (script.readyState === "loaded" || script.readyState === "complete") {
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  
+            //其余瀏览器支援onload
+            script.onload = function () {
+                callback();
+            };
+        }
+
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    } catch (e) {
+        if (null !== callbackError) callbackError(e);
+    }
+}
+
+// 格式化金钱
+const ThousandNum = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const money = ThousandNum(19941112);
+// money => "19,941,112"
+
+// 生成随机uid
+const genUid = () => {
+  var length = 20
+  var soupLength = genUid.soup_.length
+  var id = []
+  for (var i = 0; i < length; i++) {
+    id[i] = genUid.soup_.charAt(Math.random() * soupLength)
+  }
+  return id.join('')
+}
+genUid.soup_ = '!#$%()*+,-./:;=?@[]^_`{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+genUid() // ;l`yCPc9A8IuK}?N6,%}
+
+const RandomId = len => Math.random().toString(36).substr(3, len);
+const id = RandomId(10);
+// id => "jg7zpgiqva"
