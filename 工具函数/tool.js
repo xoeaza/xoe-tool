@@ -335,6 +335,9 @@ function loadScript(url, callback, callbackError) {
 // 格式化金钱
 const ThousandNum = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const money = ThousandNum(19941112);
+const moneyFormat = (num) => {
+    return Number(num).toLocaleString('en-US')
+}
 // money => "19,941,112"
 
 // 生成随机uid
