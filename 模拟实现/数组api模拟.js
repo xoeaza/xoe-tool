@@ -102,3 +102,16 @@ Array.prototype.myreduce = function reduce(callbackfn) {
 
     return accumulator
 }
+
+// 请实现一个 flattenDeep 函数，把嵌套的数组扁平化
+function flattenDeep(arr) {
+    // 当传递的整数大于数组嵌套的层数时，会将数组拉平为一维数组
+    return arr.flat(Math.pow(2, 53) - 1)
+}
+
+function flattenDeep2(arr) {
+    return arr.reduce(
+        (res, val) => (Array.isArray(val) ? res.concat(flattenDeep2(val)) : res.concat(val)),
+        []
+    )
+}
