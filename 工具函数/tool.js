@@ -228,81 +228,81 @@ function hideOnClickOutside(element) {
     document.addEventListener('click', outsideClickListener)
 }
 
-const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length) 
+const isVisible = elem => !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length)
 
 // 输入是否是数字
 function isNumeric(n) {
     return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
-  }
+}
 
-  /**
- * Set the style to the given popper
- * @method
- * @argument {Element} element - Element to apply the style to
- * @argument {Object} styles
- * Object with a list of properties and values which will be applied to the element
- */
+/**
+* Set the style to the given popper
+* @method
+* @argument {Element} element - Element to apply the style to
+* @argument {Object} styles
+* Object with a list of properties and values which will be applied to the element
+*/
 export default function setStyles(element, styles) {
     Object.keys(styles).forEach(prop => {
-      let unit = '';
-      // add unit if the value is numeric and is one of the following
-      if (
-        ['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !==
-          -1 &&
-        isNumeric(styles[prop])
-      ) {
-        unit = 'px';
-      }
-      element.style[prop] = styles[prop] + unit;
+        let unit = '';
+        // add unit if the value is numeric and is one of the following
+        if (
+            ['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !==
+            -1 &&
+            isNumeric(styles[prop])
+        ) {
+            unit = 'px';
+        }
+        element.style[prop] = styles[prop] + unit;
     });
-  }
+}
 
-  /**
- * Set the attributes to the given popper
- * @method
- * @argument {Element} element - Element to apply the attributes to
- * @argument {Object} styles
- * Object with a list of properties and values which will be applied to the element
- */
+/**
+* Set the attributes to the given popper
+* @method
+* @argument {Element} element - Element to apply the attributes to
+* @argument {Object} styles
+* Object with a list of properties and values which will be applied to the element
+*/
 export default function setAttributes(element, attributes) {
-    Object.keys(attributes).forEach(function(prop) {
-      const value = attributes[prop];
-      if (value !== false) {
-        element.setAttribute(prop, attributes[prop]);
-      } else {
-        element.removeAttribute(prop);
-      }
+    Object.keys(attributes).forEach(function (prop) {
+        const value = attributes[prop];
+        if (value !== false) {
+            element.setAttribute(prop, attributes[prop]);
+        } else {
+            element.removeAttribute(prop);
+        }
     });
-  }
+}
 
-  /**
- * Get the outer sizes of the given element (offset size + margins)
- * @method
- * @argument {Element} element
- * @returns {Object} object containing width and height properties
- */
+/**
+* Get the outer sizes of the given element (offset size + margins)
+* @method
+* @argument {Element} element
+* @returns {Object} object containing width and height properties
+*/
 export default function getOuterSizes(element) {
     const window = element.ownerDocument.defaultView;
     const styles = window.getComputedStyle(element);
     const x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0);
     const y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0);
     const result = {
-      width: element.offsetWidth + y,
-      height: element.offsetHeight + x,
+        width: element.offsetWidth + y,
+        height: element.offsetHeight + x,
     };
     return result;
-  }
-  
+}
+
 /**
  * Remove an item from an array
  */
-export function remove (arr, item) {
-  if (arr.length) {
-    const index = arr.indexOf(item)
-    if (index > -1) {
-      return arr.splice(index, 1)
+export function remove(arr, item) {
+    if (arr.length) {
+        const index = arr.indexOf(item)
+        if (index > -1) {
+            return arr.splice(index, 1)
+        }
     }
-  }
 }
 
 // 加载脚本
@@ -318,7 +318,7 @@ function loadScript(url, callback, callbackError) {
                     callback();
                 }
             };
-        } else {  
+        } else {
             //其余瀏览器支援onload
             script.onload = function () {
                 callback();
@@ -342,13 +342,13 @@ const moneyFormat = (num) => {
 
 // 生成随机uid
 const genUid = () => {
-  var length = 20
-  var soupLength = genUid.soup_.length
-  var id = []
-  for (var i = 0; i < length; i++) {
-    id[i] = genUid.soup_.charAt(Math.random() * soupLength)
-  }
-  return id.join('')
+    var length = 20
+    var soupLength = genUid.soup_.length
+    var id = []
+    for (var i = 0; i < length; i++) {
+        id[i] = genUid.soup_.charAt(Math.random() * soupLength)
+    }
+    return id.join('')
 }
 genUid.soup_ = '!#$%()*+,-./:;=?@[]^_`{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 genUid() // ;l`yCPc9A8IuK}?N6,%}
@@ -359,35 +359,46 @@ const id = RandomId(10);
 
 // 回到顶部
 const scrollToTop = _ => {
-  const c = document.documentElement.scrollTop || document.body.scrollTop;
-  if(c > 0) {
-    window.requestAnimationFrame(scrollToTop);
-    window.scrollTo(0, c - c/8);
-  }
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    if (c > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, c - c / 8);
+    }
 }
 
 
 // 获取浏览器location内需要的字段
 const getUrlParam = (key) => {
-  let ret = {}
-  for(let x of window.location.href.split('?')[1].split('&')) {
-    ret[x.split('=')[0]] = x.split('=')[1]
-  }
-  return ret[key]
-} 
+    let ret = {}
+    for (let x of window.location.href.split('?')[1].split('&')) {
+        ret[x.split('=')[0]] = x.split('=')[1]
+    }
+    return ret[key]
+}
 
 // 正则写法
 function getUrlParam(name) {
-  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
-  const r = decodeURI(window.location.search.substr(1)).match(reg)
-  if (r != null) {
-    return unescape(r[2])
-  } else {
-    return null
-  }
+    const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+    const r = decodeURI(window.location.search.substr(1)).match(reg)
+    if (r != null) {
+        return unescape(r[2])
+    } else {
+        return null
+    }
 }
 
 // sleep 
-function sleep(ms){
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// 事件绑定兼容性处理
+function addEvent(ele, type, handle) {
+    if (ele.addEventListener) {
+        ele.addEventListener(type, handle, false);
+    } else if (ele.attachEvent) {
+        ele.attachEvent('on' + type, handle);
+    } else {
+        ele['on' + type] = handle;
+    }
 }
