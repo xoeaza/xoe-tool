@@ -1,0 +1,64 @@
+/* 单行文本截断 */
+.demo {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 多行文本截断（-webkit-line-clamp 属性只有 WebKit 内核的浏览器才支持） */
+/* 适用于移动端页面 */
+.demo {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+/* 伪元素+定位实现多行省略 */
+/* 一直有省略号 */
+.demo {
+  position: relative;
+  line-height: 20px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.demo::after {
+  content: '...';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 20px 0 10px;
+}
+
+/* 利用 Float 特性，纯 CSS 实现多行省略 */
+/* 适用于对省略效果要求较低，多行文本响应式截断的情况*/
+.demo {
+  background: #099;
+  max-height: 40px;
+  line-height: 20px;
+  overflow: hidden;
+}
+.demo::before {
+  float: left;
+  content: '';
+  width: 20px;
+  height: 40px;
+}
+
+.demo .text {
+  float: right;
+  width: 100%;
+  margin-left: -20px;
+  word-break: break-all;
+}
+.demo::after {
+  float: right;
+  content: '...';
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 100%;
+  transform: translate(-100%, -100%);
+}
