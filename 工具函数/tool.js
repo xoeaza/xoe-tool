@@ -343,7 +343,7 @@ const moneyFormat = (num) => {
 
 // const soup_ = '!#$%()*+,-./:;=?@[]^_`{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 // 生成随机uid
-const genUid = (len) => {
+const getUid = (len) => {
   const soup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let length = len
   let soupLength = soup.length
