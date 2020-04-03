@@ -340,18 +340,19 @@ const moneyFormat = (num) => {
 }
 // money => "19,941,112"
 
+
+// const soup_ = '!#$%()*+,-./:;=?@[]^_`{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 // 生成随机uid
-const genUid = () => {
-    var length = 20
-    var soupLength = genUid.soup_.length
-    var id = []
-    for (var i = 0; i < length; i++) {
-        id[i] = genUid.soup_.charAt(Math.random() * soupLength)
-    }
-    return id.join('')
+const genUid = (len) => {
+  const soup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let length = len
+  let soupLength = soup.length
+  let id = []
+  for (let i = 0; i < length; i++) {
+      id[i] = soup.charAt(Math.random() * soupLength)
+  }
+  return id.join('')
 }
-genUid.soup_ = '!#$%()*+,-./:;=?@[]^_`{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-genUid() // ;l`yCPc9A8IuK}?N6,%}
 
 const RandomId = len => Math.random().toString(36).substr(3, len);
 const id = RandomId(10);
@@ -402,3 +403,13 @@ function addEvent(ele, type, handle) {
         ele['on' + type] = handle;
     }
 }
+
+// remove js
+function removeJS(filename){
+  let tags = document.getElementsByTagName('script');
+  for (let i = tags.length; i >= 0; i--){ 
+     let src = tags[i].getAttribute('src')
+   if (tags[i] && src != null && src.indexOf(filename) != -1)
+    tags[i].parentNode.removeChild(tags[i]); 
+  }
+ }
