@@ -413,3 +413,13 @@ function removeJS(filename){
     tags[i].parentNode.removeChild(tags[i]); 
   }
  }
+
+// 是否是DOM
+isDOM(item) {
+  return typeof HTMLElement === 'function'
+    ? item instanceof HTMLElement
+    : item &&
+        typeof item === 'object' &&
+        item.nodeType === 1 &&
+        typeof item.nodeName === 'string'
+}
