@@ -423,3 +423,7 @@ isDOM(item) {
         item.nodeType === 1 &&
         typeof item.nodeName === 'string'
 }
+
+// 是否支持webp图片
+// !![].map主要是判断是否是IE9+，以免toDataURL方法会挂掉
+const isSupportWebp = () => !![].map && document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0;
