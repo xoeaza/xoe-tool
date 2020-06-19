@@ -83,6 +83,14 @@ const arr = [0, 1, 2, 3, 4, 5]
 const randomItem = arr[Math.floor(Math.random() * arr.length)]
 // randomItem => 1
 
+// 生成36位长uuid
+function uuid() {
+  let temp_url = URL.createObjectURL(new Blob());
+  let uuid = temp_url.toString(); // blob:https://xxx.com/b250d159-e1b6-4a87-9002-885d90033be3
+  URL.revokeObjectURL(temp_url);
+  return uuid.substr(uuid.lastIndexOf("/") + 1);
+}
+
 // 创建指定长度数组
 const arr = [...new Array(3).keys()]
 // arr => [0, 1, 2]

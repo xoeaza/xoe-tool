@@ -1,0 +1,41 @@
+example {
+  /* 将除却 unicode-bidi 与 direction 之外的所有属性重设至其初始值，或继承值。 */
+  all: unset; /*initial | inherit | unset*/
+  /* 修改光标颜色 */
+  caret-color: red;
+}
+
+/* 裁剪 */
+clipExample {
+  /*  半径为40%，圆心默认为中心 */
+  clip-path: circle(40%);
+  /* 椭圆裁剪 */
+  clip-path: ellipse(130px 140px at 10% 20%);
+  /* 椭圆环绕 */
+  shape-outside: ellipse(130px 140px at 20% 20%);
+  /* 多边形裁剪 */
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+/* 图片处理 */
+objectFitExample {
+  /* 图片会拉变形，宽度和高度都被拉到父容器的 100%，以适应父容器 */
+  object-fit: fill;
+  /* 图片不会变形，图片会按照自身比例进行缩放，整个图片放入父容器中，较短的边会出现自动填充的空白。 */
+  object-fit: contain;
+  /* 图片不会变形，图片会按照自身比例进行缩放，整个图片放入父容器中，按照图片最短的边，纳入父容器为基准。较长的边会溢出 */
+  object-fit: cover;
+  /* 内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。 */
+  object-fit: scale-down;
+  object-position: right top; 
+}
+
+/*
+ max-content / min-content / fill-available / fit-content 
+ display 必须为 inline-block 或者 block，否则上面的值不起作用
+*/
+contentExample {
+  /* 元素撑满可用空间。参考的基准为父元素有多宽多高。 */
+  width: fill-available;
+}
+
