@@ -99,6 +99,12 @@ const arr = [...new Array(3).keys()]
 const arr = new Array(3).fill(0)
 // arr => [0, 0, 0]
 
+// 数组取交集
+const duplicatedValues = (a, b) => [...new Set(a)].filter(item => b.includes(item))
+
+// 数组取差集
+const diffValues = (a, b) => [...new Set([...a, ...b])].filter(item => !b.includes(item) || !a.includes(item))
+
 // 检测非空参数
 function IsRequired () {
   throw new Error('param is required')
@@ -361,6 +367,21 @@ const getUid = (len) => {
   }
   return id.join('')
 }
+
+/**
+ * 生成随机字符串
+ * @param {*} len 生成的字符串长度
+ */
+export const getRandomChars = len => {
+  const s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  return Array(len)
+    .join()
+    .split(',')
+    .map(() => {
+      return s.charAt(Math.floor(Math.random() * s.length));
+    })
+    .join('');
+};
 
 const RandomId = len => Math.random().toString(36).substr(3, len);
 const id = RandomId(10);
