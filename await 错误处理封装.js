@@ -8,4 +8,10 @@ async function errorCaptured(asyncFunc) {
 }
 
 // 调用
-let [err, res] = await errorCaptured(asyncFunc)
+async function func() {
+  let [err, res] = await errorCaptured(asyncFunc)
+  if (err) {
+      //... 错误捕获
+  }
+  //...
+}
