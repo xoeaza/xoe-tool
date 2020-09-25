@@ -1,0 +1,52 @@
+/* transform: scale(0.5) 方案 */
+div {
+  height: 1px;
+  background: #000;
+  -webkit-transform: scaleY(0.5);
+  -webkit-transform-origin: 0 0;
+  overflow: hidden;
+}
+/* css 根据设备像素比媒体查询后的解决方案 */
+/* 2倍屏 */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-bottom::after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+/* 3倍屏 */
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .border-bottom::after {
+    -webkit-transform: scaleY(0.33);
+    transform: scaleY(0.33);
+  }
+}
+
+.border-1px {
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    border-radius: 0.24rem;
+    border: 1px solid @border-gray-color;
+    color: @border-gray-color;
+    height: 200%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    pointer-events: none; /* 防止点击触发 */
+    box-sizing: border-box;
+    @media screen and (min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio: 3) {
+      width: 300%;
+      height: 300%;
+      border-radius: 0.36rem;
+      -webkit-transform: scale(0.33333);
+      transform: scale(0.333333);
+    }
+  }
+}
