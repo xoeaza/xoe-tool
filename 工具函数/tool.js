@@ -406,6 +406,15 @@ const getUrlParam = (key) => {
   return ret[key]
 }
 
+// 创建一个包含当前URL参数的对象
+const getURLParameters = url =>
+  (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
+    (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
+    {}
+  );
+getURLParameters('http://url.com/page?n=Adam&s=Smith'); // {n: 'Adam', s: 'Smith'}
+getURLParameters('google.com'); // {}
+
 // 正则写法
 function getUrlParam (name) {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
@@ -603,4 +612,44 @@ export function subText(str, length) {
 // 隐藏手机号中间四位
 export function hidePhone(phone) {
   return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+}
+
+// 将字符串复制到剪贴板
+const copyToClipboard = str => {
+  const el = document.createElement('textarea')
+  el.value = str
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+  if (selected) {
+    document.getSelection().removeAllRanges()
+    document.getSelection().addRange(selected)
+  }
+}
+copyToClipboard('Lorem ipsum') // 'Lorem ipsum' copied to clipboard
+
+// 确定页面的浏览器选项卡是否聚焦
+const isBrowserTabFocused = () => !document.hidden;
+isBrowserTabFocused(); // true
+
+// 如何创建目录（如果不存在）
+const fs = require('fs');
+const createDirIfNotExists = dir => (!fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined);
+createDirIfNotExists('test'); 
+
+// 访问链接正常化
+const urlNormalize = (url) => {
+  if (!url) return ''
+  if (url.startsWith('//')) {
+    return `https:${url}`
+  }
+  if (!/^https?:\/\//.test(url)) {
+    return `https://${url}`
+  }
+  return url
 }
