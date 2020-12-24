@@ -41,3 +41,16 @@ getImages(document, false) // ['image1.jpg', 'image2.png', '...']
 // 7.确定设备是移动设备还是台式机/笔记本电脑
 const detectDeviceType = () => (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop')
 detectDeviceType() // "Mobile" or "Desktop"
+
+// 8.判断是否支持ellipsis
+function isSupportLineClamp() {
+  let isSupport = true
+  const node = document.createElement('div')
+  if ('WebkitLineClamp' in node.style) {
+    node.style.WebkitLineClamp = '3'
+    if (node.style.WebkitLineClamp !== '3') {
+      isSupport = false
+    }
+  }
+  return isSupport
+}

@@ -653,3 +653,34 @@ const urlNormalize = (url) => {
   }
   return url
 }
+
+// 清除domain下所有cookie
+const clearCookies = domain => {
+  const exp = new Date()
+  exp.setTime(exp.getTime() - 1)
+  const keys = document.cookie.match(/[^ =;]+(?=\=)/g)
+  if (keys.length) {
+    for(let cookie of keys) {
+      document.cookie = `${cookie}=0;expire=${exp.toGMTString()};path=/`
+    }
+  }
+}
+
+// url解析工具
+function getLocation(href) {
+  const match = href.match(
+    /^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/,
+  );
+  return (
+    match && {
+      href,
+      protocol: match[1],
+      host: match[2],
+      hostname: match[3],
+      port: match[4],
+      pathname: match[5],
+      search: match[6],
+      hash: match[7],
+    }
+  );
+}
