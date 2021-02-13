@@ -442,6 +442,25 @@ function addEvent (ele, type, handle) {
   }
 }
 
+// 惰性载入的方式事件绑定兼容性处理
+function addHandler(element, type, handler) {
+  if (element.addEventListener) {
+    addHandler = function (element, type, handler) {
+      element.addEventListener(type, handler, false);
+    };
+  } else if (element.attachEvent) {
+    addHandler = function (element, type, handler) {
+      element.attachEvent("on" + type, handler);
+    };
+  } else {
+    addHandler = function (element, type, handler) {
+      element["on" + type] = handler;
+    };
+  }
+  // 保证首次调用能正常执行监听
+  return addHandler(element, type, handler);
+}
+
 // remove js
 function removeJS (filename) {
   let tags = document.getElementsByTagName('script');
@@ -683,4 +702,53 @@ function getLocation(href) {
       hash: match[7],
     }
   );
+}
+
+// upperCase
+function upperCase(input) {
+  return input && typeof input === "string" ? input.toUpperCase() : input;
+}
+
+// split
+function split(input, delimiter = ",") {
+  return typeof input === "string" ? input.split(delimiter) : input;
+}
+
+// 缓存函数
+function memorize(fn) {
+  const cache = Object.create(null); // 存储缓存数据的对象
+  return function (...args) {
+    const _args = JSON.stringify(args);
+    return cache[_args] || (cache[_args] = fn.apply(fn, args));
+  };
+};
+
+// let complexCalc = (a, b) => {
+//   // 执行复杂的计算
+// };
+
+// let memoCalc = memorize(complexCalc);
+// memoCalc(666, 888);
+// memoCalc(666, 888); // 从缓存中获取
+
+// 获取htmlStr中的img地址
+function getImgUrlsFromHtml (htmlStr) {
+  // 获取所有匹配的<img>的整个标签
+  const imgStrs = htmlStr.match(/<img.*?>/g)
+  const result = imgStrs.map(url=>{
+    return url.match(/\ssrc=['"](.*?)['"]/)[1]
+  })
+  return result
+}
+
+// 确保路径中带斜杆‘/’
+function ensureSlash(inputPath, needsSlash) {
+  const hasSlash = inputPath.endsWith('/');
+  if (hasSlash && !needsSlash) {
+    return inputPath.substr(0, inputPath.length - 1);
+  } else if (!hasSlash && needsSlash) {
+    return `${inputPath}/`;
+  } else {
+    return inputPath;
+  }
 }
