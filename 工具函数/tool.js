@@ -49,6 +49,7 @@ const flag = Array.isArray(arr) && !arr.length
 // 是否为空对象
 const obj = {}
 const flag = DataType(obj, 'object') && !Object.keys(obj).length
+const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
 // flag => true
 
 // 混淆数组
