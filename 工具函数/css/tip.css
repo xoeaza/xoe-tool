@@ -27,7 +27,7 @@ objectFitExample {
   object-fit: cover;
   /* 内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。 */
   object-fit: scale-down;
-  object-position: right top; 
+  object-position: right top;
 }
 
 /*
@@ -39,3 +39,12 @@ contentExample {
   width: fill-available;
 }
 
+/* 使用伪元素来增大可点击面积 */
+.btn::befoer {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+}

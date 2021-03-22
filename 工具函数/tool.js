@@ -753,3 +753,14 @@ function ensureSlash(inputPath, needsSlash) {
     return inputPath;
   }
 }
+
+// 转义html标签
+function _getProcessedContent (content) {
+  return content
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
+}
