@@ -44,7 +44,7 @@ let A = (function(_super) {
   return A
 })(B)
 
-// 另一种写法
+// 寄生组合式另一种写法
 function object(o) {
   function F() {}
   F.prototype = o
