@@ -59,9 +59,8 @@ function debounce(func, wait, immediate) {
 // 节流函数，将多次执行变成每隔一段时间执行
 const throttle = (fn, wait) => {
     let inThrottle, lastFn, lastTime
-    return function () {
+    return function (...args) {
         const context = this,
-            args = arguments
         if (!inThrottle) {
             fn.apply(context, args)
             lastTime = Date.now()
