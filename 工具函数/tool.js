@@ -764,3 +764,10 @@ function _getProcessedContent (content) {
     .replace(/'/g, "&#039;")
     .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
 }
+
+// 正则替换query参数
+function replaceParamVal(oUrl, paramName, replaceWith) {
+  let re = new RegExp('(' + paramName + '=)([^&]*)', 'gi')
+  let nUrl = oUrl.replace(re, paramName + '=' + replaceWith)
+  return nUrl
+}
