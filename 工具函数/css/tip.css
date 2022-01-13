@@ -61,3 +61,8 @@ inset：可选。从外层的阴影（开始时）改变阴影内侧阴影。 */
   border: 1px solid #0cbbea;
   box-shadow: 0 0 0 1px #0cbbea;
 }
+
+/* 常用阴影 */
+.shadow {
+  box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.08);
+}
