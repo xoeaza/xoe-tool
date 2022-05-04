@@ -5,6 +5,7 @@ import chalk from 'chalk'
 import tinify from 'tinify'
 
 // 可于https://tinypng.com/developers申请
+// https://www.linshi-email.com/ 临时邮箱
 tinify.key = 'nGDGRKLBWbtJ32PwQ82lGjgzvddnwjHx'
 const filePath = 'uploads/allimg/'
 const files = fs.readdirSync(filePath)
