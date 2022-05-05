@@ -545,10 +545,10 @@ export function getPageViewWidth () {
 
 // 获取窗口宽度
 export function getPageWidth () {
-  let g = document,
-    a = g.body,
-    f = g.documentElement,
-    d = g.compatMode == "BackCompat" ? a : g.documentElement;
+  let g = document;
+  let a = g.body;
+  let f = g.documentElement;
+  let d = g.compatMode == "BackCompat" ? a : g.documentElement;
   return Math.max(f.scrollWidth, a.scrollWidth, d.clientWidth);
 }
 
