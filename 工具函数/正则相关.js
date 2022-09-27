@@ -199,3 +199,7 @@ export const isCapital = value => /^[A-Z]+$/g.test(value)
 
 // 90.验证小写英文字母
 export const isLowercase = value => /^[a-z]+$/g.test(value)
+
+// 取（）内的值
+let str = 'dskf(AAA)_8hjk(CCC)dsk(BBB)'
+let temp = str.match(/[^\(\)]+(?=\))/g)
