@@ -57,3 +57,22 @@ files.keys().forEach(key => {
   modules[name] = files(key).default || files(key)
 })
 components:modules
+
+// 与vite对比
+const files = require.context('.', false, /\.ts$/);
+const modules = {};
+files.keys().forEach((key) => {
+     if (key === './index.ts') { return; }
+     modules[key.replace(/(\.\/|\.ts)/g, '')] = files(key).default;
+});
+export default modules;
+
+const files = import.meta.globEager("./*.ts")
+const modules: any = {};
+
+for (const key in files) {
+    if (Object.prototype.hasOwnProperty.call(files, key)) {
+        modules[key.replace(/(\.\/|\.ts)/g, '')] = files[key].default
+    }
+}
+export default modules;
