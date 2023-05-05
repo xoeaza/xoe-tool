@@ -172,3 +172,47 @@ SELECT ua.mobile,up.name FROM user_accounts as ua INNER JOIN users_profile as up
 -- LEFT JOIN: 即使右表中没有匹配，也从左表返回所有的行
 -- RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有的行
 -- FULL JOIN: 只要其中一个表中存在匹配，就返回行(MySQL 是不支持的，通过 LEFT JOIN + UNION + RIGHT JOIN 的方式 来实现)
+-- 选择包含 Customers 的所有 Orders：
+SELECT Orders.OrderID, Customers.CustomerName FROM Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+-- [JOIN 三张表] 选择包含 Customers 和 Shippers 的所有 Orders：
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+
+-- LEFT JOIN 返回左表 (表1) 中的所有记录，以及右表 (表2) 中的匹配记录
+-- 将选择所有 Customers 以及他们可能拥有的任何 Orders：
+SELECT Customers.CustomerName, Orders.OrderID FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+-- RIGHT JOIN
+-- 返回所有 Employees 以及他们可能下的任何 Orders：
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+-- FULL OUTER JOIN 当左（表1）或右（表2）表记录中存在匹配时，关键字返回所有记录
+SELECT 列名称(s)
+FROM 表1
+FULL OUTER JOIN 表2
+ON 表1.列名称 = 表2.列名称
+WHERE 条件;
+
+
+-- COUNT
+SELECT COUNT(列名称) FROM 表名称 WHERE 条件;
+-- AVG
+-- 查找 Products 表中所的 Price 平均值：
+SELECT AVG(Price) FROM Products;
+-- SUM
+-- 查找 OrderDetails 表中 Quantity 字段的总和：
+SELECT SUM(Quantity) FROM OrderDetails;
+-- MAX
+-- 列出表 Orders 字段 OrderPrice 列最大值，
+-- 结果集列不显示 OrderPrice 显示 LargestOrderPrice
+SELECT MAX(OrderPrice) AS LargestOrderPrice FROM Orders
+-- MIN
+-- 查找 Products 表中 Price 字段最小值，并命名 SmallestPrice 别名：
+SELECT MIN(Price) AS SmallestPrice FROM Products;
