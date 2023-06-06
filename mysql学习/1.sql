@@ -201,7 +201,7 @@ ON 表1.列名称 = 表2.列名称
 WHERE 条件;
 
 
--- COUNT
+-- COUNT 返回与指定条件匹配的行数
 SELECT COUNT(列名称) FROM 表名称 WHERE 条件;
 -- AVG
 -- 查找 Products 表中所的 Price 平均值：
@@ -216,3 +216,56 @@ SELECT MAX(OrderPrice) AS LargestOrderPrice FROM Orders
 -- MIN
 -- 查找 Products 表中 Price 字段最小值，并命名 SmallestPrice 别名：
 SELECT MIN(Price) AS SmallestPrice FROM Products;
+
+-- 触发器
+-- create trigger <触发器名称>  
+-- { before | after}         -- 之前或者之后出发  
+-- insert | update | delete  -- 指明了激活触发程序的语句的类型  
+-- on <表名>                  -- 操作哪张表  
+-- for each row              -- 触发器的执行间隔，for each row 通知触发器每隔一行执行一次动作，而不是对整个表执行一次。  
+-- <触发器SQL语句>
+
+delimiter $
+CREATE TRIGGER set_userdate BEFORE INSERT 
+on `message`
+for EACH ROW
+BEGIN
+  set @statu = new.status; -- 声明复制变量 statu
+  if @statu = 0 then       -- 判断 statu 是否等于 0
+    UPDATE `user_accounts` SET status=1 WHERE openid=NEW.openid;
+  end if;
+END
+$
+DELIMITER ; -- 恢复结束符号
+
+-- 创建索引
+-- –直接创建索引
+CREATE INDEX index_user ON user(title)
+-- –修改表结构的方式添加索引
+ALTER TABLE table_name ADD INDEX index_name ON (column(length))
+-- 给 user 表中的 name 字段 添加普通索引(INDEX)
+ALTER TABLE `user` ADD INDEX index_name (name)
+-- –创建表的时候同时创建索引
+CREATE TABLE `user` (
+    `id` int(11) NOT NULL AUTO_INCREMENT ,
+    `title` char(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+    `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+    `time` int(10) NULL DEFAULT NULL ,
+    PRIMARY KEY (`id`),
+    INDEX index_name (title(length))
+)
+-- –删除索引
+DROP INDEX index_name ON table
+
+-- 主键索引
+-- 给 user 表中的 id字段 添加主键索引(PRIMARY key)
+ALTER TABLE `user` ADD PRIMARY key (id);
+-- 唯一索引
+-- 给 user 表中的 creattime 字段添加唯一索引(UNIQUE)
+ALTER TABLE `user` ADD UNIQUE (creattime);
+-- 全文索引
+-- 给 user 表中的 description 字段添加全文索引(FULLTEXT)
+ALTER TABLE `user` ADD FULLTEXT (description);
+-- 多列索引
+-- 给 user 表中的 name、city、age 字段添加名字为name_city_age的普通索引(INDEX)
+ALTER TABLE user ADD INDEX name_city_age (name(10),city,age); 
