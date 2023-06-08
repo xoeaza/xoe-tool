@@ -269,3 +269,79 @@ ALTER TABLE `user` ADD FULLTEXT (description);
 -- 多列索引
 -- 给 user 表中的 name、city、age 字段添加名字为name_city_age的普通索引(INDEX)
 ALTER TABLE user ADD INDEX name_city_age (name(10),city,age); 
+
+-- 建立索引的时机
+-- MySQL只对<，<=，=，>，>=，BETWEEN，IN使用索引
+-- 某些时候的LIKE也会使用索引。
+-- 在LIKE以通配符%和_开头作查询时，MySQL不会使用索引。
+-- 此时就需要对city和age建立索引，
+-- 由于mytable表的userame也出现在了JOIN子句中，也有对它建立索引的必要。
+SELECT t.Name  
+FROM mytable t LEFT JOIN mytable m ON t.Name=m.username 
+WHERE m.age=20 AND m.city='上海';
+
+SELECT * FROM mytable WHERE username like'admin%'; -- 而下句就不会使用：
+SELECT * FROM mytable WHERE Name like'%admin'; -- 因此，在使用LIKE时应注意以上的区别。
+
+-- 添加列
+-- 在表students的最后追加列 address: 
+alter table students add address char(60);
+-- 在名为 age 的列后插入列 birthday: 
+alter table students add birthday date after age;
+-- 在名为 number_people 的列后插入列 weeks: 
+alter table students add column `weeks` varchar(5) not null default "" after `number_people`;
+
+-- 修改列
+-- 将表 tel 列改名为 telphone: 
+alter table students change tel telphone char(13) default "-";
+-- 将 name 列的数据类型改为 char(16): 
+alter table students change name name char(16) not null;
+-- 修改 COMMENT 前面必须得有类型属性
+alter table students change name name char(16) COMMENT '这里是名字';
+-- 修改列属性的时候 建议使用modify,不需要重建表
+-- change用于修改列名字，这个需要重建表
+alter table meeting modify `weeks` varchar(20) NOT NULL DEFAULT '' COMMENT '开放日期 周一到周日：0~6，间隔用英文逗号隔开';
+-- `user`表的`id`列，修改成字符串类型长度50，不能为空，`FIRST`放在第一列的位置
+alter table `user` modify COLUMN `id` varchar(50) NOT NULL FIRST ;
+
+-- 删除列
+-- 删除表students中的 birthday 列: 
+alter table students drop birthday;
+
+-- 重命名表
+-- 重命名 students 表为 workmates: 
+alter table students rename workmates;
+
+-- 清空表数据
+-- 方法一：delete from 表名; 方法二：truncate table "表名";
+-- DELETE:1. DML语言;2. 可以回退;3. 可以有条件的删除;
+-- TRUNCATE:1. DDL语言;2. 无法回退;3. 默认所有的表内容都删除;4. 删除速度比delete快。
+-- 清空表为 workmates 里面的数据，不删除表。 
+delete from workmates;
+-- 删除workmates表中的所有数据，且无法恢复
+truncate table workmates;
+
+-- 删除整张表
+-- 删除 workmates 表: 
+drop table workmates;
+
+-- 删除整个数据库
+-- 删除 samp_db 数据库: 
+drop database samp_db;
+
+-- SQL删除重复记录
+-- 查找表中多余的重复记录，重复记录是根据单个字段（peopleId）来判断
+select * from people where peopleId in (select peopleId from people group by peopleId having count(peopleId) > 1)
+-- 删除表中多余的重复记录，重复记录是根据单个字段（peopleId）来判断，只留有rowid最小的记录
+delete from people 
+where peopleId in (select peopleId from people group by peopleId having count(peopleId) > 1)
+and rowid not in (select min(rowid) from people group by peopleId having count(peopleId )>1)
+-- 查找表中多余的重复记录（多个字段）
+select * from vitae a
+where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(*) > 1)
+-- 删除表中多余的重复记录（多个字段），只留有rowid最小的记录
+delete from vitae a
+where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(*) > 1) and rowid not in (select min(rowid) from vitae group by peopleId,seq having count(*)>1)
+-- 查找表中多余的重复记录（多个字段），不包含rowid最小的记录
+select * from vitae a
+where (a.peopleId,a.seq) in (select peopleId,seq from vitae group by peopleId,seq having count(*) > 1) and rowid not in (select min(rowid) from vitae group by peopleId,seq having count(*)>1)
