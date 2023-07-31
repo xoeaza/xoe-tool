@@ -16,6 +16,7 @@ use samp_db;           -- 选择创建的数据库 samp_db
 show tables;           -- 显示 samp_db 下面所有的表名字
 describe 表名;          -- 显示数据表的结构
 delete from 表名;       -- 清空表中记录
+flush privileges;      -- 刷新权限
 
 -- 创建数据库表
 -- 如果数据库中存在user_accounts表，就把它从数据库中drop掉

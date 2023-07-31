@@ -1,0 +1,6 @@
+-- 每个表，都必须存在以下五个字段
+-- id 主键
+-- `version` 乐观锁
+-- is_delete 伪删除
+-- gmt_create 创建时间
+-- gmt_update 修改时间
