@@ -14,3 +14,8 @@ DROP TABLE IF EXISTS teacher1
 ALTER TABLE `student` 
 ADD CONSTRAINT `FK_gradeid` FOREIGN KEY(`gradeid`) REFERENCES `grade`(`gradeid`)
 -- ALTER TABLE 表 ADD CONSTRAINT 约束名 FOREIGN KEY（作为外键的列）REFERENCES 那个表（哪个字段）
+
+-- 数据库中的表达式：文本值，列，NULL，函数，计算表达式，系统变量...
+
+--  join on 连接查询
+--  where   等值查询

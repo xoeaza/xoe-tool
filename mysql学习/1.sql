@@ -317,6 +317,7 @@ alter table students rename workmates;
 -- 方法一：delete from 表名; 方法二：truncate table "表名";
 -- DELETE:1. DML语言;2. 可以回退;3. 可以有条件的删除;
 -- TRUNCATE:1. DDL语言;2. 无法回退;3. 默认所有的表内容都删除;4. 删除速度比delete快。
+-- TRUNCATE 重新设置自增列，计数器会归零，并且不会影响事务
 -- 清空表为 workmates 里面的数据，不删除表。 
 delete from workmates;
 -- 删除workmates表中的所有数据，且无法恢复
