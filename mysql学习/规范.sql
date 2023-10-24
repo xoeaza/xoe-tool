@@ -19,3 +19,14 @@ ADD CONSTRAINT `FK_gradeid` FOREIGN KEY(`gradeid`) REFERENCES `grade`(`gradeid`)
 
 --  join on 连接查询
 --  where   等值查询
+
+SELECT [ALL | DISTINCT]
+{* | table.* [table.field1[as aliasl][,table.field2[as alias2]][,...]]}
+FROM table_name[as table_alias]
+[left | right | inner join table_name2] --联合查询
+[WHERE ...] --指定结果需满足的条件
+[GROUP BY ...] --指定结果按照哪几个字段来分组
+[HAVING] --过滤分组的记录必须满足的次要条件
+[ORDER BY ...]--指定查询记录按一个或多个条件排序
+[LIMIT {[offset,]row_count | row_count OFFFSET offset}];
+--指定查询的记录从哪条至哪条
