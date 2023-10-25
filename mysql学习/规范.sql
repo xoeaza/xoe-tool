@@ -42,3 +42,10 @@ COMMIT; --提交事务，就被持久化了
 ROLLBACK; --回滚
 
 SET autocommit = 1; --恢复默认值
+
+-- 索引原则
+-- 索引不是越多越好
+-- 不要对经常变动数据加索引
+-- 小数据量的表不需要加索引
+-- 索引一般加载常用来查询的字段上
+-- 索引的底层原理参考文档 http://blog.codinglabs.org/articles/theory-of-mysql-index.html
