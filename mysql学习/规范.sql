@@ -30,3 +30,15 @@ FROM table_name[as table_alias]
 [ORDER BY ...]--指定查询记录按一个或多个条件排序
 [LIMIT {[offset,]row_count | row_count OFFFSET offset}];
 --指定查询的记录从哪条至哪条
+
+-- 事务
+SET autocommit = 0; --关闭自动提交
+START TRANSACTION --开启一个事务（一组事务）
+
+UPDATE account SET money=money-500 WHERE `name` = 'A' --A减500
+UPDATE account SET money=money=500 WHERE `name` = 'B' --B加500
+
+COMMIT; --提交事务，就被持久化了
+ROLLBACK; --回滚
+
+SET autocommit = 1; --恢复默认值
