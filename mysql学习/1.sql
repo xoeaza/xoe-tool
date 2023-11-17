@@ -374,3 +374,17 @@ REVOKE ALL PRIVILEGES ON *.* FROM kuangshen2
 
 -- 删除用户
 DROP USER kuangshen
+
+-- 备份数据库
+-- #mysqldump -h 主机 -u 用户名 -p 密码 数据库表 > 物理磁盘位置/文件名
+mysqldump -hlocalhost -uroot -p123456 school student >D:/a.sql
+
+-- mysqldump -h 主机 -u 用户名 -p 密码 数据库表1表2表3 > 物理磁盘位置/文件名
+mysqldump -hlocalhost -uroot -p123456 school student >D:/b.sgl
+#mysq1dump-h主机-u用户名-p密码数据库>物理磁盘位置/文件名
+mysqldump-hlocalhost-uroot-p123456schoo1>D:/c.sql
+#导入
+#登录的情况下，切换到指定的数据库，
+#source备份文件
+sourced:/a.sql
+mysq1-u用户名-p密码库名<备份文件
