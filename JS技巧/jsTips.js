@@ -42,3 +42,36 @@ Object.keys(DATA_TYPE).forEach(val => {
   const { id, label } = DATA_TYPE[val];
   DATA_TYPE_MAP[id] = label;
 });
+
+// 复杂对象在query传参
+// 设定一个复杂对象
+const complexObject = {
+  name: 'Vue.js',
+  type: 'Framework',
+  year: 2014
+};
+
+// 将对象转换为JSON字符串
+const jsonString = JSON.stringify(complexObject);
+
+// 将JSON字符串转换为blob对象
+const blob = new Blob([jsonString], { type: 'application/json' });
+
+// 创建URL指向blob对象
+const url = URL.createObjectURL(blob);
+
+// 使用vue-router进行导航，并附加blob对象作为query参数
+this.$router.push({ path: '/destination', query: { data: url } });
+
+// 在目标组件中，你可以通过以下方式获取并解析blob对象
+created() {
+  const blobUrl = this.$route.query.data;
+  fetch(blobUrl).then(response => response.blob()).then(blob => {
+    // 将blob对象转换为JSON字符串
+    return blob.text();
+  }).then(jsonString => {
+    // 将JSON字符串解析回对象
+    const complexObject = JSON.parse(jsonString);
+    console.log(complexObject);
+  });
+}
