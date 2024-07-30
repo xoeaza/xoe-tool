@@ -1,104 +1,95 @@
 class StorageFn {
   constructor() {
-    this.ls = window.localStorage
-    this.ss = window.sessionStorage
+    this.ls = window.localStorage;
+    this.ss = window.sessionStorage;
   }
 
-  /*-----------------cookie---------------------*/
-  /*设置cookie*/
+  /* -----------------cookie--------------------- */
   setCookie(name, value, day) {
-    let setting = arguments[0]
-    if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
+    let setting = arguments[0];
+    if (Object.prototype.toString.call(setting).slice(8, -1) === "Object") {
       for (let i in setting) {
         if ({}.hasOwnProperty.call(setting, i)) {
-          let oDate = new Date()
-          oDate.setDate(oDate.getDate() + day)
-          document.cookie = i + '=' + setting[i] + ';expires=' + oDate
+          let oDate = new Date();
+          oDate.setDate(oDate.getDate() + day);
+          document.cookie = i + "=" + setting[i] + ";expires=" + oDate;
         }
       }
     } else {
-      let oDate = new Date()
-      oDate.setDate(oDate.getDate() + day)
-      document.cookie = name + '=' + value + ';expires=' + oDate
+      let oDate = new Date();
+      oDate.setDate(oDate.getDate() + day);
+      document.cookie = name + "=" + value + ";expires=" + oDate;
     }
   }
 
-  /*获取cookie*/
   getCookie(name) {
-    let arr = document.cookie.split('; ')
+    let arr = document.cookie.split("; ");
     for (let i = 0; i < arr.length; i++) {
-      let arr2 = arr[i].split('=')
+      let arr2 = arr[i].split("=");
       if (arr2[0] == name) {
-        return arr2[1]
+        return arr2[1];
       }
     }
-    return ''
+    return "";
   }
 
-  /*删除cookie*/
   removeCookie(name) {
-    this.setCookie(name, 1, -1)
+    this.setCookie(name, 1, -1);
   }
 
-  /*-----------------localStorage---------------------*/
-  /*设置localStorage*/
+  /* -----------------localStorage--------------------- */
   setLocal(key, val) {
-    let setting = arguments[0]
-    if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
+    let setting = arguments[0];
+    if (Object.prototype.toString.call(setting).slice(8, -1) === "Object") {
       for (let i in setting) {
         if ({}.hasOwnProperty.call(setting, i)) {
-          this.ls.setItem(i, JSON.stringify(setting[i]))
+          this.ls.setItem(i, JSON.stringify(setting[i]));
         }
       }
     } else {
-      this.ls.setItem(key, JSON.stringify(val))
+      this.ls.setItem(key, JSON.stringify(val));
     }
   }
 
-  /*获取localStorage*/
   getLocal(key) {
-    if (key) return JSON.parse(this.ls.getItem(key))
-    return null
+    if (key && this.ls.getItem(key)) return JSON.parse(this.ls.getItem(key));
+    return null;
   }
 
-  /*移除localStorage*/
   removeLocal(key) {
-    this.ls.removeItem(key)
+    this.ls.removeItem(key);
   }
 
-  /*移除所有localStorage*/
   clearLocal() {
-    this.ls.clear()
+    this.ls.clear();
   }
 
-  /*-----------------sessionStorage---------------------*/
-  /*设置sessionStorage*/
+  /* -----------------sessionStorage--------------------- */
   setSession(key, val) {
-    let setting = arguments[0]
-    if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
+    let setting = arguments[0];
+    if (Object.prototype.toString.call(setting).slice(8, -1) === "Object") {
       for (let i in setting) {
         if ({}.hasOwnProperty.call(setting, i)) {
-          this.ss.setItem(i, JSON.stringify(setting[i]))
+          this.ss.setItem(i, JSON.stringify(setting[i]));
         }
       }
     } else {
-      this.ss.setItem(key, JSON.stringify(val))
+      this.ss.setItem(key, JSON.stringify(val));
     }
   }
 
-  /*获取sessionStorage*/
   getSession(key) {
-    if (key) return JSON.parse(this.ss.getItem(key))
-    return null
+    if (key && this.ss.getItem(key)) return JSON.parse(this.ss.getItem(key));
+    return null;
   }
 
-  /*移除sessionStorage*/
   removeSession(key) {
-    this.ss.removeItem(key)
+    this.ss.removeItem(key);
   }
 
-  /*移除所有sessionStorage*/
   clearSession() {
-    this.ss.clear()
+    this.ss.clear();
   }
 }
+
+export default new StorageFn();
