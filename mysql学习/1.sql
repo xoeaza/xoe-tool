@@ -62,7 +62,7 @@ SELECT tag, COUNT(tag) from news GROUP BY tag order by convert(tag using utf8) c
 
 -- UPDATE
 -- update语句设置字段值为另一个结果取出来的字段
-UPDATE user set name = (SELECT name from user1 WHERE user1 .id = 1 )
+UPDATE user set name = (SELECT name from user1 WHERE user1.id = 1 )
 WHERE id = (SELECT id from user2 WHERE user2 .name='小苏');
 -- 更新表 orders 中 id=1 的那一行数据更新它的 title 字段
 UPDATE `orders` set title='这里是标题' WHERE id=1;
