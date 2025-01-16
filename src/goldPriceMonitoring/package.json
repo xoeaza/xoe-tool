@@ -1,0 +1,17 @@
+{
+  "name": "goldPriceMonitoring",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "金价监控脚本",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.16"
+  }
+}
