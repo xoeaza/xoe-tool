@@ -388,3 +388,54 @@ mysqldump-hlocalhost-uroot-p123456schoo1>D:/c.sql
 #source备份文件
 sourced:/a.sql
 mysq1-u用户名-p密码库名<备份文件
+
+常用窗口函数
+函数	        用途
+ROW_NUMBER()	对组内行生成唯一序号（1,2,3...）
+RANK()	      排名（相同值会跳过后续序号，如1,1,3）
+DENSE_RANK()	密集排名（相同值不跳过序号，如1,1,2）
+SUM()/AVG()/COUNT()	累计求和/平均/计数
+LAG(col, n)	  获取当前行向前第n行的值
+LEAD(col, n)	获取当前行向后第n行的值
+
+--示例：计算每个产品的销售额排名
+SELECT 
+    sale_id, product, amount,
+    RANK() OVER (PARTITION BY product ORDER BY amount DESC) AS rank_by_product
+FROM sales;
+--计算每个产品的累计销售额
+SELECT 
+    sale_id, product, sale_date, amount,
+    SUM(amount) OVER (
+        PARTITION BY product 
+        ORDER BY sale_date 
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM sales;
+--对比当前行与前一行的差值（LAG）
+SELECT 
+    sale_id, product, sale_date, amount,
+    amount - LAG(amount, 1, 0) OVER (
+        PARTITION BY product 
+        ORDER BY sale_date
+    ) AS amount_diff
+FROM sales;
+--找出全公司销售额最高的前10笔订单。
+WITH ranked_sales AS (
+    SELECT 
+        sale_id, amount,
+        DENSE_RANK() OVER (ORDER BY amount DESC) AS rank
+    FROM sales
+)
+SELECT * FROM ranked_sales WHERE rank <= 10;
+--计算每笔订单金额与全表平均值的差异。
+SELECT 
+    sale_id, amount,
+    amount - AVG(amount) OVER () AS diff_from_avg
+FROM sales;
+--计算每日销售额占全月总销售额的百分比。
+SELECT 
+    sale_date,
+    amount,
+    amount / SUM(amount) OVER () * 100 AS percentage
+FROM sales;
